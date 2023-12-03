@@ -22,7 +22,15 @@ public class TestClass {
         driver = new FirefoxDriver();
         driver.get(baseUrl);
     }
-
+    /**
+     * Test Scenario: Validate successful user registration
+     * Steps:
+     * 1. Navigate to the registration page
+     * 2. Fill in the registration form with valid user information
+     * 3. Submit the form
+     * Expected Outcome:
+     * - A success message should be displayed indicating that the user account was created successfully.
+     */
     @Test(priority = 1)
     public void registerSuccess() {
         driver.findElement(By.xpath("//*[@id=\"loginPanel\"]/p[2]/a")).click();
@@ -48,6 +56,15 @@ public class TestClass {
         Assert.assertEquals(actualMessage, awaitedMessage);
     }
 
+    /**
+     * Test Scenario: Validate unsuccessful user login with incorrect credentials
+     * Steps:
+     * 1. Navigate to the login page
+     * 2. Enter incorrect username and password
+     * 3. Submit the login form
+     * Expected Outcome:
+     * - An error message should be displayed indicating login failure.
+     */
     @Test(priority = 2)
     public void loginFail() throws Exception {
         driver.findElement(By.name("username")).sendKeys("salam1");
@@ -64,8 +81,17 @@ public class TestClass {
         Assert.assertEquals(msg, errorMsg);//if error message is not shown then test should be considered FAILED
     }
 
+    /**
+     * Test Scenario: Validate successful user login with valid credentials
+     * Steps:
+     * 1. Navigate to the login page
+     * 2. Enter correct username and password
+     * 3. Submit the login form
+     * Expected Outcome:
+     * - A success message should be displayed indicating successful login.
+     */
     @Test(priority = 3)
-    public void loginValidInput() {
+    public void loginSuccess() {
         driver.findElement(By.name("username")).sendKeys("salam1");
         driver.findElement(By.name("password")).sendKeys("salam1");
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -79,7 +105,15 @@ public class TestClass {
         String errorMsg = "Error!";
         Assert.assertNotEquals(msg, errorMsg);//it should not return errorMsg to pass
     }
-
+    /**
+     * Test Scenario: Validate successful opening of a new account
+     * Steps:
+     * 1. Navigate to the new account page
+     * 2. Select account type and amount
+     * 3. Submit the new account form
+     * Expected Outcome:
+     * - A success message should be displayed indicating the account is open.
+     */
     @Test (priority = 3)
     public void opeNewAccount() throws InterruptedException {
         Thread.sleep(2000);
@@ -96,7 +130,15 @@ public class TestClass {
         WebElement message=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rightPanel > div > div > p:nth-child(2)")));
         Assert.assertEquals(message.getText(),"Congratulations, your account is now open.");
     }
-
+    /**
+     * Test Scenario: Validate successful fund transfer between accounts
+     * Steps:
+     * 1. Navigate to the fund transfer page
+     * 2. Enter transfer details and amount
+     * 3. Submit the transfer form
+     * Expected Outcome:
+     * - A success message should be displayed indicating the completion of the fund transfer.
+     */
     @Test(priority = 4)
     public void transferFunds() throws InterruptedException {
         Thread.sleep(2000);
@@ -115,6 +157,15 @@ public class TestClass {
         WebElement msg=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rightPanel > div > div > h1")));
         Assert.assertEquals(msg.getText(),"Transfer Complete!");
     }
+    /**
+     * Test Scenario: Validate successful bill payment
+     * Steps:
+     * 1. Navigate to the bill payment page
+     * 2. Enter payee details, account information, and amount
+     * 3. Submit the bill payment form
+     * Expected Outcome:
+     * - A success message should be displayed indicating the completion of the bill payment.
+     */
     @Test(priority = 5)
     public void BillPay() throws InterruptedException {
         Thread.sleep(2000);
@@ -141,6 +192,14 @@ public class TestClass {
         WebElement msg=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"rightPanel\"]/div/div[2]/h1")));
         Assert.assertEquals(msg.getText(),"Bill Payment Complete");
     }
+    /**
+     * Test Scenario: Validate accurate retrieval of transactions
+     * Steps:
+     * 1. Navigate to the transaction search page
+     * 2. Enter search criteria and initiate the search
+     * Expected Outcome:
+     * - The system should display transactions matching the specified criteria.
+     */
     @Test(priority = 6)
     public void findTransactions() throws InterruptedException {
         WebDriverWait wait=new WebDriverWait(driver,Duration.ofMillis(5));
